@@ -59,10 +59,11 @@ export function BookingDialog({
       setIsSubmitting(true);
       setErrorMessage(null);
 
-      await createBooking(resourceId, pricingId, startsAt);
+      const bookingId = await createBooking(resourceId, pricingId, startsAt);
 
       setOpen(false);
-      router.push("/dashboard/bookings");
+
+      router.push(`/dashboard/bookings/${bookingId}`);
     } catch (error) {
       console.error(error);
 

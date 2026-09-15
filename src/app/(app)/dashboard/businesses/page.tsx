@@ -102,19 +102,31 @@ export default async function BusinessDashboardPage() {
               </p>
             )}
 
-            <div className="flex items-center justify-between gap-3">
-              <Badge variant="outline">
-                {roleByBusinessId.get(business.id)}
-              </Badge>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href={`/dashboard/businesses/${business.id}`}
+                className="text-sm font-medium underline"
+              >
+                Open dashboard
+              </Link>
+
               <Link
                 href={`/dashboard/businesses/${business.id}/bookings`}
                 className="text-sm underline"
               >
                 Bookings
               </Link>
+
+              <Link
+                href={`/dashboard/businesses/${business.id}/settings`}
+                className="text-sm underline"
+              >
+                Settings
+              </Link>
+
               <Link
                 href={`/dashboard/businesses/${business.id}/resources`}
-                className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
+                className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
               >
                 Manage resources
               </Link>

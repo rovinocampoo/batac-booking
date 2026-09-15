@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -16,6 +17,7 @@ export default async function ProfilePage() {
           <span className="font-medium">Email:</span> {user?.email}
         </p>
       </div>
+      <Link href="/dashboard/bookings">My Bookings</Link>
     </section>
   );
 }

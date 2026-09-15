@@ -23,15 +23,17 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
     .from("businesses")
     .select(
       `
-        id,
-        name,
-        slug,
-        description,
-        category,
-        address,
-        phone,
-        status,
-        owner_id
+      id,
+      name,
+      slug,
+      description,
+      category,
+      address,
+      phone,
+      status,
+      owner_id,
+      latitude,
+      longitude
       `,
     )
     .eq("slug", slug)
@@ -107,6 +109,16 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
 
           {business.phone && <p>{business.phone}</p>}
         </div>
+        {business.latitude !== null && business.longitude !== null && (
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${business.latitude},${business.longitude}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex text-sm underline"
+          >
+            Open in Google Maps
+          </a>
+        )}
       </section>
 
       <section className="space-y-3">

@@ -47,6 +47,7 @@ export function MobileMenu() {
             >
               Profile
             </Link>
+            <Link href="/dashboard/bookings">My Bookings</Link>
           </nav>
         </div>
       )}
