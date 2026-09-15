@@ -85,8 +85,13 @@ export function BookingDialog({
 
   return (
     <>
-      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-        {formatTime(startsAt)}
+      <Button
+        className="h-14 w-full justify-between rounded-xl px-5"
+        onClick={() => setOpen(true)}
+      >
+        <span className="text-base font-semibold">{formatTime(startsAt)}</span>
+
+        <span className="text-xs opacity-80">Book</span>
       </Button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>

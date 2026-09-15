@@ -69,9 +69,9 @@ export default async function BusinessesPage({
   const resultCount = businesses?.length ?? 0;
 
   return (
-    <main className="space-y-8">
-      <section className="space-y-3">
-        <div>
+    <main>
+      <section className="border-b bg-gradient-to-b from-accent/40 to-background">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <h1 className="text-3xl font-bold">Explore Batac</h1>
 
           <p className="text-muted-foreground">
@@ -79,7 +79,10 @@ export default async function BusinessesPage({
           </p>
         </div>
 
-        <form method="get" className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
+        <form
+          method="get"
+          className="grid gap-3 rounded-2xl border bg-card p-3 shadow-sm md:grid-cols-[1fr_220px_auto]"
+        >
           <input
             type="search"
             name="q"
@@ -87,7 +90,6 @@ export default async function BusinessesPage({
             placeholder="Search businesses..."
             className="h-10 w-full rounded-md border bg-background px-3 text-sm"
           />
-
           <select
             name="category"
             defaultValue={category}
@@ -99,7 +101,6 @@ export default async function BusinessesPage({
               </option>
             ))}
           </select>
-
           <button
             type="submit"
             className="h-10 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground"
@@ -109,7 +110,7 @@ export default async function BusinessesPage({
         </form>
       </section>
 
-      <section className="space-y-4">
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
             {resultCount} {resultCount === 1 ? "business" : "businesses"} found
@@ -131,7 +132,7 @@ export default async function BusinessesPage({
             </p>
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {businesses?.map((business) => (
               <BusinessCard key={business.id} business={business} />
             ))}
