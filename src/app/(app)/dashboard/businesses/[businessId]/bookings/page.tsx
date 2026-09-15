@@ -148,10 +148,6 @@ export default async function BusinessBookingsPage({
         booking.status === "CANCELLED",
     ) ?? [];
 
-  const confirmedUpcomingCount = upcomingBookings.filter(
-    (booking) => booking.status === "CONFIRMED",
-  ).length;
-
   const pendingUpcomingCount = upcomingBookings.filter(
     (booking) => booking.status === "PENDING",
   ).length;

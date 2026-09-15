@@ -3,7 +3,6 @@ import { notFound, redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 
-import { Button } from "@/components/ui/button";
 import { ResourceHoursDialog } from "@/components/business/resource-hours-dialog";
 
 const DAYS = [

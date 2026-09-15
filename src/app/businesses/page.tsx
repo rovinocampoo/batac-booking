@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 
 import { BusinessCard } from "@/components/business/business-card";
+import Link from "next/link";
 
 const CATEGORIES = [
   "ALL",
@@ -115,9 +116,9 @@ export default async function BusinessesPage({
           </p>
 
           {(searchQuery || category !== "ALL") && (
-            <a href="/businesses" className="text-sm underline">
+            <Link href="/businesses" className="text-sm underline">
               Clear filters
-            </a>
+            </Link>
           )}
         </div>
 

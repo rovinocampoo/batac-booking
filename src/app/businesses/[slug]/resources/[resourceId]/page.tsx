@@ -29,15 +29,6 @@ function getTodayInManila() {
 
   return `${values.year}-${values.month}-${values.day}`;
 }
-
-function formatTime(value: string) {
-  return new Intl.DateTimeFormat("en-PH", {
-    timeZone: "Asia/Manila",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(new Date(value));
-}
-
 function formatPrice(value: number) {
   return new Intl.NumberFormat("en-PH", {
     style: "currency",

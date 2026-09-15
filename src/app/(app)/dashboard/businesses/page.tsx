@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 export default async function BusinessDashboardPage() {
   const supabase = await createClient();
@@ -60,10 +59,6 @@ export default async function BusinessDashboardPage() {
   if (businessError) {
     throw new Error(`Failed to load businesses: ${businessError.message}`);
   }
-
-  const roleByBusinessId = new Map(
-    memberships?.map((membership) => [membership.business_id, membership.role]),
-  );
 
   return (
     <main className="space-y-6">

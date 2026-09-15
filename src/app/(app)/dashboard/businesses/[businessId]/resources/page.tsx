@@ -4,7 +4,6 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 import { CreateResourceDialog } from "@/components/business/create-resource-dialog";
 
