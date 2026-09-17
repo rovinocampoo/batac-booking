@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import type { Business } from "@/types/business";
 
-const categoryLabel: Record<string, string> = {
+const categoryLabels: Record<string, string> = {
   SPORTS: "Sports",
   FITNESS: "Fitness",
   FOOD_AND_DRINK: "Food & Drink",
@@ -12,25 +12,35 @@ const categoryLabel: Record<string, string> = {
   OTHER: "Other",
 };
 
-export function BusinessCard({ business }: { business: Business }) {
-  const category = categoryLabel[business.category] ?? business.category;
+export function BusinessCard({
+  business,
+}: {
+  business: Business & {
+    cover_image_path?: string | null;
+  };
+}) {
+  const category = categoryLabels[business.category] ?? business.category;
+
+  const imageUrl = business.cover_image_path
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/business-images/${business.cover_image_path}`
+    : "https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=1200&q=80";
 
   return (
     <Link
       href={`/businesses/${business.slug}`}
-      className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         <Image
-          src="https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=1200&q=80"
+          src={imageUrl}
           alt={business.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
 
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-16">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-5 pt-16">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-white/85">
             {category}
           </span>
         </div>
@@ -42,7 +52,7 @@ export function BusinessCard({ business }: { business: Business }) {
 
           {business.address && (
             <p className="mt-1 text-sm text-muted-foreground">
-              {business.address}
+              📍 {business.address}
             </p>
           )}
         </div>
@@ -53,7 +63,7 @@ export function BusinessCard({ business }: { business: Business }) {
           </p>
         )}
 
-        <div className="pt-1 text-sm font-semibold text-primary">
+        <div className="pt-1 text-sm font-bold text-primary">
           View business →
         </div>
       </div>

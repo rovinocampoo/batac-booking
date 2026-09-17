@@ -36,7 +36,7 @@ export default async function BusinessSettingsPage({ params }: Props) {
 
   const { data: business, error } = await supabase
     .from("businesses")
-    .select("id, name, description, category, address, phone")
+    .select("id, name, description, category, address, phone, cover_image_path")
     .eq("id", businessId)
     .maybeSingle();
 
@@ -71,6 +71,7 @@ export default async function BusinessSettingsPage({ params }: Props) {
           category: business.category,
           address: business.address ?? "",
           phone: business.phone ?? "",
+          coverImagePath: business.cover_image_path,
         }}
       />
     </main>

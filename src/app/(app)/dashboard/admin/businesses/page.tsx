@@ -30,7 +30,7 @@ export default async function AdminBusinessesPage() {
         <h1 className="text-2xl font-semibold">Business Moderation</h1>
 
         <p className="text-muted-foreground">
-          Review and manage businesses before they appear publicly.
+          Review pending businesses and manage their publication status.
         </p>
       </div>
 
@@ -75,13 +75,19 @@ export default async function AdminBusinessesPage() {
                 </TableCell>
 
                 <TableCell className="text-right">
-                  <BusinessModerationDialog
-                    business={{
-                      id: business.id,
-                      name: business.name,
-                      status: business.status,
-                    }}
-                  />
+                  {business.status === "PENDING" ? (
+                    <BusinessModerationDialog
+                      business={{
+                        id: business.id,
+                        name: business.name,
+                        status: business.status,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-sm text-muted-foreground">
+                      No action
+                    </span>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

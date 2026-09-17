@@ -7,7 +7,7 @@ export async function FeaturedBusinesses() {
 
   const { data: businesses, error } = await supabase
     .from("businesses")
-    .select("id, name, slug, description, category, address")
+    .select("id, name, slug, description, category, address, cover_image_path")
     .eq("status", "APPROVED")
     .order("name")
     .limit(6);

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import {
   updateBusiness,
@@ -26,6 +27,7 @@ type Business = {
   category: (typeof CATEGORIES)[number];
   address: string;
   phone: string;
+  coverImagePath: string | null;
 };
 
 export function BusinessSettingsForm({ business }: { business: Business }) {
@@ -42,6 +44,9 @@ export function BusinessSettingsForm({ business }: { business: Business }) {
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const coverImageUrl = business.coverImagePath
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/business-images/${business.coverImagePath}`
+    : null;
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -106,7 +111,17 @@ export function BusinessSettingsForm({ business }: { business: Business }) {
       <div className="space-y-3">
         <div>
           <p className="text-sm font-medium">Cover image</p>
-
+          {coverImageUrl && (
+            <div className="overflow-hidden rounded-2xl border">
+              <Image
+                src={coverImageUrl}
+                alt={`${business.name} cover`}
+                width={1600}
+                height={700}
+                className="aspect-[16/7] w-full object-cover"
+              />
+            </div>
+          )}
           <p className="text-sm text-muted-foreground">
             Upload a clear photo representing the business.
           </p>

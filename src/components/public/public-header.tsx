@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { createClient } from "@/lib/supabase/server";
 
+import { MobileMenu } from "@/components/navigation/mobile-menu";
+
 export async function PublicHeader() {
   const supabase = await createClient();
 
@@ -42,31 +44,38 @@ export async function PublicHeader() {
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground"
-              >
-                Sign in
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/login"
+                  className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+                >
+                  Sign in
+                </Link>
 
-              <Link
-                href="/signup"
-                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
-              >
-                Get started
-              </Link>
+                <div className="flex flex-col items-end leading-tight">
+                  <Link
+                    href="/signup"
+                    className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                  >
+                    Get started
+                  </Link>
+
+                  <span className="mt-1 text-[11px] text-muted-foreground">
+                    No account?{" "}
+                    <Link
+                      href="/signup"
+                      className="font-medium text-foreground hover:underline"
+                    >
+                      Sign up
+                    </Link>
+                  </span>
+                </div>
+              </div>
             </>
           )}
         </nav>
 
-        <div className="md:hidden">
-          <Link
-            href={user ? "/dashboard" : "/login"}
-            className="rounded-full border px-4 py-2 text-sm font-medium"
-          >
-            {user ? "Dashboard" : "Sign in"}
-          </Link>
-        </div>
+        <MobileMenu isAuthenticated={Boolean(user)} />
       </div>
     </header>
   );

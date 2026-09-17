@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { createClient } from "@/lib/supabase/server";
+import { MobileMenu } from "@/components/navigation/mobile-menu";
+import { LogoutButton } from "@/components/auth/logout-button";
 
 const navigation = [
   {
@@ -71,9 +73,16 @@ export default async function AppLayout({
             Batac<span className="text-primary">Hub</span>
           </Link>
 
-          <Link href="/" className="text-sm font-medium text-muted-foreground">
-            View site
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/"
+              className="rounded-full border px-3 py-2 text-xs font-semibold"
+            >
+              Site
+            </Link>
+
+            <MobileMenu isAuthenticated isAdmin={isAdmin} />
+          </div>
         </div>
       </header>
 
@@ -122,6 +131,9 @@ export default async function AppLayout({
                     </Link>
                   ))}
                 </nav>
+                <div className="mt-auto border-t p-3">
+                  <LogoutButton />
+                </div>
               </div>
             )}
 

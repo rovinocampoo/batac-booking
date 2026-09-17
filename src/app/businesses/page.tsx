@@ -46,7 +46,7 @@ export default async function BusinessesPage({
 
   let query = supabase
     .from("businesses")
-    .select("id, name, slug, description, category, address")
+    .select("id, name, slug, description, category, address, cover_image_path")
     .eq("status", "APPROVED")
     .order("name");
 

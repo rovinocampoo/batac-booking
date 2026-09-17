@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -30,7 +31,7 @@ export default async function HomePage() {
 
   const { data: businesses, error } = await supabase
     .from("businesses")
-    .select("id, name, slug, description, category, address")
+    .select("id, name, slug, description, category, address, cover_image_path")
     .eq("status", "APPROVED")
     .order("created_at", {
       ascending: false,
@@ -85,42 +86,56 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background">
       <PublicHeader />
       <main>
-        <section className="border-b">
-          <div className="mx-auto max-w-6xl space-y-6 px-4 py-16 sm:py-24">
-            <div className="max-w-3xl space-y-4">
-              <p className="text-sm font-medium text-muted-foreground">
-                Batac, Ilocos Norte
-              </p>
+        <section className="overflow-hidden border-b bg-gradient-to-br from-accent/50 via-background to-background">
+          <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:px-8">
+            <div className="space-y-7">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
+                  Batac, Ilocos Norte
+                </p>
 
-              <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-                Find your next place to play, eat, train, or explore.
-              </h1>
+                <h1 className="mt-4 max-w-3xl text-5xl font-black tracking-tight sm:text-6xl">
+                  Find your next place in Batac.
+                </h1>
 
-              <p className="max-w-2xl text-lg text-muted-foreground">
-                Discover local businesses and book the places you actually want
-                to use.
-              </p>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+                  Discover places to play, eat, train, meet, and explore — then
+                  book them through BatacHub.
+                </p>
+              </div>
+
+              <form
+                action="/businesses"
+                method="get"
+                className="flex max-w-2xl flex-col gap-3 rounded-2xl border bg-card p-3 shadow-lg sm:flex-row"
+              >
+                <input
+                  name="q"
+                  type="search"
+                  placeholder="Search courts, gyms, cafés..."
+                  className="h-12 min-w-0 flex-1 rounded-xl border-0 bg-transparent px-4 text-sm outline-none"
+                />
+
+                <button
+                  type="submit"
+                  className="h-12 rounded-xl bg-primary px-7 text-sm font-bold text-primary-foreground hover:opacity-90"
+                >
+                  Explore
+                </button>
+              </form>
             </div>
 
-            <form
-              action="/businesses"
-              method="get"
-              className="flex max-w-3xl flex-col gap-3 sm:flex-row"
-            >
-              <input
-                name="q"
-                type="search"
-                placeholder="Search tennis courts, gyms, coffee shops..."
-                className="h-12 flex-1 rounded-md border bg-background px-4 text-sm"
-              />
-
-              <button
-                type="submit"
-                className="h-12 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground"
-              >
-                Search
-              </button>
-            </form>
+            <div className="hidden lg:block">
+              <div className="overflow-hidden rounded-3xl border bg-card shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80"
+                  alt="People enjoying a local activity"
+                  width={1200}
+                  height={1500}
+                  className="aspect-[4/5] w-full object-cover"
+                />
+              </div>
+            </div>
           </div>
         </section>
 

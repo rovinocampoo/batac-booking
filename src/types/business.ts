@@ -5,4 +5,5 @@ export type Business = {
   description: string | null;
   category: string;
   address: string | null;
+  cover_image_path?: string | null;
 };

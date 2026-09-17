@@ -1,53 +1,147 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { LogoutButton } from "@/components/auth/logout-button";
 
-export function MobileMenu() {
+type MobileMenuProps = {
+  isAuthenticated?: boolean;
+  isAdmin?: boolean;
+};
+
+export function MobileMenu({
+  isAuthenticated = false,
+  isAdmin = false,
+}: MobileMenuProps) {
   const [open, setOpen] = useState(false);
 
-  function handleToggle() {
-    setOpen((currentOpen) => !currentOpen);
-  }
-
-  function handleClose() {
+  function closeMenu() {
     setOpen(false);
   }
 
   return (
     <div className="md:hidden">
-      <Button
+      <button
         type="button"
-        variant="outline"
-        size="icon"
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        onClick={handleToggle}
+        onClick={() => setOpen((value) => !value)}
+        aria-label={open ? "Close navigation" : "Open navigation"}
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border bg-background"
       >
-        {open ? <X /> : <Menu />}
-      </Button>
+        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </button>
 
       {open && (
-        <div className="absolute inset-x-0 top-16 border-b bg-background p-4 shadow-md">
-          <nav className="flex flex-col gap-2">
+        <div className="absolute inset-x-0 top-16 border-b bg-background shadow-lg">
+          <nav className="mx-auto max-w-7xl space-y-1 px-4 py-4">
             <Link
-              href="/dashboard"
-              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-muted"
-              onClick={handleClose}
+              href="/businesses"
+              onClick={closeMenu}
+              className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
             >
-              Dashboard
+              Explore
             </Link>
 
-            <Link
-              href="/profile"
-              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-muted"
-              onClick={handleClose}
-            >
-              Profile
-            </Link>
-            <Link href="/dashboard/bookings">My Bookings</Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={closeMenu}
+                  className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                >
+                  Dashboard
+                </Link>
+
+                <Link
+                  href="/dashboard/bookings"
+                  onClick={closeMenu}
+                  className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                >
+                  My bookings
+                </Link>
+
+                <Link
+                  href="/dashboard/businesses"
+                  onClick={closeMenu}
+                  className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                >
+                  My businesses
+                </Link>
+
+                {isAdmin && (
+                  <>
+                    <div className="my-3 border-t" />
+
+                    <p className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                      Administration
+                    </p>
+
+                    <Link
+                      href="/dashboard/admin"
+                      onClick={closeMenu}
+                      className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                    >
+                      Admin
+                    </Link>
+
+                    <Link
+                      href="/dashboard/admin/businesses"
+                      onClick={closeMenu}
+                      className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                    >
+                      Businesses
+                    </Link>
+
+                    <Link
+                      href="/dashboard/admin/imports"
+                      onClick={closeMenu}
+                      className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                    >
+                      Imports
+                    </Link>
+
+                    <Link
+                      href="/dashboard/admin/claims"
+                      onClick={closeMenu}
+                      className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                    >
+                      Claims
+                    </Link>
+                    <div className="border-t pt-3">
+                      <LogoutButton />
+                    </div>
+                  </>
+                )}
+
+                <div className="my-3 border-t" />
+
+                <Link
+                  href="/dashboard/profile"
+                  onClick={closeMenu}
+                  className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                >
+                  Profile
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className="block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-muted"
+                >
+                  Sign in
+                </Link>
+
+                <Link
+                  href="/signup"
+                  onClick={closeMenu}
+                  className="block rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
+                >
+                  Get started
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       )}
