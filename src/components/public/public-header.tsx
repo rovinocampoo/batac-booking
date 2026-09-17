@@ -59,16 +59,6 @@ export async function PublicHeader() {
                   >
                     Get started
                   </Link>
-
-                  <span className="mt-1 text-[11px] text-muted-foreground">
-                    No account?{" "}
-                    <Link
-                      href="/signup"
-                      className="font-medium text-foreground hover:underline"
-                    >
-                      Sign up
-                    </Link>
-                  </span>
                 </div>
               </div>
             </>
